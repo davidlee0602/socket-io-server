@@ -17,14 +17,18 @@ io.on('connection', (socket)=>{
     //io for broadcast
     //socket for single client connection
 
+    //private room
+    socket.join('room1');
     console.log("A new user connected.");
 
+    //server sends event and data to individual client
     socket.emit("newMsg", {
         from: "Admin",
         text: "Welcome to the chat app!",
         createdAt: new Date().getTime()
     })
 
+    //server broadcasts messages excluding new connection client
     socket.broadcast.emit("newMsg", {
         from: "Admin",
         text: "New User Joined",
