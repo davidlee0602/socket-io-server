@@ -1,17 +1,17 @@
-const path = require('path');
-const http = require('http');
-const express = require('express');
-const socketIO = require('socket.io');
+import { join } from 'path';
+import { createServer } from 'http';
+import express, { static } from 'express';
+import socketIO from 'socket.io';
 
-const publicPath  = path.join(__dirname, '/../public');
+const publicPath  = join(__dirname, '/../public');
 const port = process.env.PORT || 4000;
 
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 const app = express();
-const server = http.createServer(app);
+const server = createServer(app);
 const io = socketIO(server);
 
-app.use(express.static(publicPath));
+app.use(static(publicPath));
 
 io.on('connection', (socket)=>{
     //io for broadcast
